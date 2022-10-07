@@ -158,7 +158,7 @@ If <code>n</code> is 0, the corresponding C declaration is</p>
 <pre><code class="language-c">extern s sym;
 </code></pre>
 <p>where <code>s</code> is the C translation of <code>β</code> as specified in the next section.
-In the case of an <code>@[extern]</code> definition, the symbol's value is guaranteed to be initialized only after calling the Lean module's initializer or that of an importing module; see <a href=".#init">Initialization</a>.</p>
+In the case of an <code>@[extern]</code> definition, the symbol's value is guaranteed to be initialized only after calling the Lean module's initializer or that of an importing module; see <a href="#initialization">Initialization</a>.</p>
 <p>If <code>n</code> is greater than 0, the corresponding C declaration is</p>
 <pre><code class="language-c">s sym(t₁, ..., tₘ);
 </code></pre>
