@@ -396,7 +396,7 @@ example (a b c : Nat) (h0 : a &lt;= b) (h1 : b &lt;= c) : False := by
 <code>exfalso</code> tactic defined in Mathlib4:</p>
 <pre><code class="language-lean">
 set_option trace.Elab.definition true in
-macro &quot;exfalso&quot; : tactic =&gt; `(apply False.elim)
+macro &quot;exfalso&quot; : tactic =&gt; `(tactic| apply False.elim)
 
 /-
 Results in the expansion:
