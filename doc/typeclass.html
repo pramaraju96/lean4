@@ -481,7 +481,7 @@ this kind of situation. We can achieve exactly that using <em>default instances<
 
 export HMul (hMul)
 
-@[defaultInstance]
+@[default_instance]
 instance : HMul Int Int Int where
   hMul := Int.mul
 
@@ -490,7 +490,7 @@ def xs : List Int := [1, 2, 3]
 #check fun y =&gt; xs.map (fun x =&gt; hMul x y)  -- Int -&gt; List Int
 <span class="boring">end Ex
 </span></code></pre>
-<p>By tagging the instance above with the attribute <code>defaultInstance</code>, we are instructing Lean
+<p>By tagging the instance above with the attribute <code>default_instance</code>, we are instructing Lean
 to use this instance on pending type class synthesis problems.
 The actual Lean implementation defines homogeneous and heterogeneous classes for arithmetical operators.
 Moreover, <code>a+b</code>, <code>a*b</code>, <code>a-b</code>, <code>a/b</code>, and <code>a%b</code> are notations for the heterogeneous versions.
@@ -502,7 +502,7 @@ priority to override the builtin ones.</p>
   den : Nat
   inv : den ≠ 0
 
-@[defaultInstance 200]
+@[default_instance 200]
 instance : OfNat Rational n where
   ofNat := { num := n, den := 1, inv := by decide }
 
@@ -520,7 +520,7 @@ Now, we reveal how the notation <code>a*b</code> is defined in Lean.</p>
 </span>class OfNat (α : Type u) (n : Nat) where
   ofNat : α
 
-@[defaultInstance]
+@[default_instance]
 instance (n : Nat) : OfNat Nat n where
   ofNat := n
 
@@ -530,7 +530,7 @@ class HMul (α : Type u) (β : Type v) (γ : outParam (Type w)) where
 class Mul (α : Type u) where
   mul : α → α → α
 
-@[defaultInstance 10]
+@[default_instance 10]
 instance [Mul α] : HMul α α α where
   hMul a b := Mul.mul a b
 

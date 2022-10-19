@@ -384,11 +384,11 @@ Lean execution runtime. For example, we cannot prove in Lean that arrays have a 
 the runtime used to execute Lean programs guarantees that an array cannot have more than 2^64 (2^32) elements
 in a 64-bit (32-bit) machine. We can take advantage of this fact to provide a more efficient implementation for
 array functions. However, the efficient version would not be very useful if it can only be used in
-unsafe code. Thus, Lean 4 provides the attribute <code>@[implementedBy functionName]</code>. The idea is to provide
+unsafe code. Thus, Lean 4 provides the attribute <code>@[implemented_by functionName]</code>. The idea is to provide
 an unsafe (and potentially more efficient) version of a safe definition or constant. The function <code>f</code>
-at the attribute <code>@[implementedBy f]</code> is very similar to an extern/foreign function,
+at the attribute <code>@[implemented_by f]</code> is very similar to an extern/foreign function,
 the key difference is that it is implemented in Lean itself. Again, the logical soundness of the system
-cannot be compromised by using the attribute <code>implementedBy</code>, but if the implementation is incorrect your
+cannot be compromised by using the attribute <code>implemented_by</code>, but if the implementation is incorrect your
 program may crash at runtime. In the following example, we define <code>withPtrUnsafe a k h</code> which
 executes <code>k</code> using the memory address where <code>a</code> is stored in memory. The argument <code>h</code> is proof
 that <code>k</code> is a constant function. Then, we &quot;seal&quot; this unsafe implementation at <code>withPtr</code>. The proof <code>h</code>
@@ -398,7 +398,7 @@ ensures the reference implementation <code>k 0</code> is correct. For more infor
 def withPtrUnsafe {α β : Type} (a : α) (k : USize → β) (h : ∀ u, k u = k 0) : β :=
   k (ptrAddrUnsafe a)
 
-@[implementedBy withPtrUnsafe]
+@[implemented_by withPtrUnsafe]
 def withPtr {α β : Type} (a : α) (k : USize → β) (h : ∀ u, k u = k 0) : β :=
   k 0
 </code></pre>

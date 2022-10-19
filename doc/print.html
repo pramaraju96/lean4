@@ -3596,7 +3596,7 @@ this kind of situation. We can achieve exactly that using <em>default instances<
 
 export HMul (hMul)
 
-@[defaultInstance]
+@[default_instance]
 instance : HMul Int Int Int where
   hMul := Int.mul
 
@@ -3605,7 +3605,7 @@ def xs : List Int := [1, 2, 3]
 #check fun y =&gt; xs.map (fun x =&gt; hMul x y)  -- Int -&gt; List Int
 <span class="boring">end Ex
 </span></code></pre>
-<p>By tagging the instance above with the attribute <code>defaultInstance</code>, we are instructing Lean
+<p>By tagging the instance above with the attribute <code>default_instance</code>, we are instructing Lean
 to use this instance on pending type class synthesis problems.
 The actual Lean implementation defines homogeneous and heterogeneous classes for arithmetical operators.
 Moreover, <code>a+b</code>, <code>a*b</code>, <code>a-b</code>, <code>a/b</code>, and <code>a%b</code> are notations for the heterogeneous versions.
@@ -3617,7 +3617,7 @@ priority to override the builtin ones.</p>
   den : Nat
   inv : den ≠ 0
 
-@[defaultInstance 200]
+@[default_instance 200]
 instance : OfNat Rational n where
   ofNat := { num := n, den := 1, inv := by decide }
 
@@ -3635,7 +3635,7 @@ Now, we reveal how the notation <code>a*b</code> is defined in Lean.</p>
 </span>class OfNat (α : Type u) (n : Nat) where
   ofNat : α
 
-@[defaultInstance]
+@[default_instance]
 instance (n : Nat) : OfNat Nat n where
   ofNat := n
 
@@ -3645,7 +3645,7 @@ class HMul (α : Type u) (β : Type v) (γ : outParam (Type w)) where
 class Mul (α : Type u) where
   mul : α → α → α
 
-@[defaultInstance 10]
+@[default_instance 10]
 instance [Mul α] : HMul α α α where
   hMul a b := Mul.mul a b
 
@@ -6052,11 +6052,11 @@ Lean execution runtime. For example, we cannot prove in Lean that arrays have a 
 the runtime used to execute Lean programs guarantees that an array cannot have more than 2^64 (2^32) elements
 in a 64-bit (32-bit) machine. We can take advantage of this fact to provide a more efficient implementation for
 array functions. However, the efficient version would not be very useful if it can only be used in
-unsafe code. Thus, Lean 4 provides the attribute <code>@[implementedBy functionName]</code>. The idea is to provide
+unsafe code. Thus, Lean 4 provides the attribute <code>@[implemented_by functionName]</code>. The idea is to provide
 an unsafe (and potentially more efficient) version of a safe definition or constant. The function <code>f</code>
-at the attribute <code>@[implementedBy f]</code> is very similar to an extern/foreign function,
+at the attribute <code>@[implemented_by f]</code> is very similar to an extern/foreign function,
 the key difference is that it is implemented in Lean itself. Again, the logical soundness of the system
-cannot be compromised by using the attribute <code>implementedBy</code>, but if the implementation is incorrect your
+cannot be compromised by using the attribute <code>implemented_by</code>, but if the implementation is incorrect your
 program may crash at runtime. In the following example, we define <code>withPtrUnsafe a k h</code> which
 executes <code>k</code> using the memory address where <code>a</code> is stored in memory. The argument <code>h</code> is proof
 that <code>k</code> is a constant function. Then, we &quot;seal&quot; this unsafe implementation at <code>withPtr</code>. The proof <code>h</code>
@@ -6066,7 +6066,7 @@ ensures the reference implementation <code>k 0</code> is correct. For more infor
 def withPtrUnsafe {α β : Type} (a : α) (k : USize → β) (h : ∀ u, k u = k 0) : β :=
   k (ptrAddrUnsafe a)
 
-@[implementedBy withPtrUnsafe]
+@[implemented_by withPtrUnsafe]
 def withPtr {α β : Type} (a : α) (k : USize → β) (h : ∀ u, k u = k 0) : β :=
   k 0
 </code></pre>
@@ -6289,7 +6289,7 @@ method launches a concurrent computation whose job is to find such an <code>Envi
 more information for us, in the form of a <code>snap : Snapshot</code>. With this in hand, we can call
 <code>MetaM</code> procedures to find out the type of <code>name</code> and pretty-print it.</p>
 <pre class="alectryon-io type-info-hidden highlight"><!-- Generator: Alectryon --><span class="alectryon-wsp"><span class="alectryon-token"><span class="kn">open</span></span><span class="alectryon-token"> Server RequestM </span><span class="alectryon-token"><span class="k">in</span></span><span class="alectryon-token">
-<span class="kd">@[serverRpcMethod]</span>
+<span class="kd">@[server_rpc_method]</span>
 </span><span class="alectryon-token"><span class="kd">def</span></span><span class="alectryon-token"> </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>getType</var><b>: </b><span>GetTypeParams → RequestM (RequestTask CodeWithInfos)</span></span></div></blockquote></div></small></div><span class="nv">getType</span></span><span class="alectryon-token"> (</span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>params</var><b>: </b><span>GetTypeParams</span></span></div></blockquote></div></small></div><span class="nv">params</span></span><span class="alectryon-token"> : </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>GetTypeParams</var><b>: </b><span>Type</span></span></div></blockquote></div></small></div>GetTypeParams</span><span class="alectryon-token">) : </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>RequestM</var><b>: </b><span>Type → Type</span></span></div></blockquote></div></small></div>RequestM</span><span class="alectryon-token"> (</span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>RequestTask</var><b>: </b><span>Type → Type</span></span></div></blockquote></div></small></div>RequestTask</span><span class="alectryon-token"> </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>CodeWithInfos</var><b>: </b><span>Type</span></span></div></blockquote></div></small></div>CodeWithInfos</span><span class="alectryon-token">) :=
   </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>withWaitFindSnapAtPos</var><b>: </b><span>{α : Type} → Lsp.Position → (Snapshots.Snapshot → RequestM α) → RequestM (RequestTask α)</span></span></div></blockquote></div></small></div>withWaitFindSnapAtPos</span><span class="alectryon-token"> </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>params</var><b>: </b><span>GetTypeParams</span></span></div></blockquote></div></small></div><span class="nv">params</span></span><span class="alectryon-token"><span class="bp">.</span></span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>pos</var><b>: </b><span>GetTypeParams → Lsp.Position</span></span></div></blockquote></div></small></div>pos</span><span class="alectryon-token"> </span><span class="alectryon-token"><span class="k">fun</span></span><span class="alectryon-token"> </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>snap</var><b>: </b><span>Snapshots.Snapshot</span></span></div></blockquote></div></small></div><span class="nv">snap</span></span><span class="alectryon-token"> <span class="bp">=&gt;</span> </span><span class="alectryon-token"><span class="k">do</span></span><span class="alectryon-token">
     </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>runTermElabM</var><b>: </b><span>{α : Type} → Snapshots.Snapshot → RequestT Elab.TermElabM α → RequestM α</span></span></div></blockquote></div></small></div>runTermElabM</span><span class="alectryon-token"> </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>snap</var><b>: </b><span>Snapshots.Snapshot</span></span></div></blockquote></div></small></div><span class="nv">snap</span></span><span class="alectryon-token"> </span><span class="alectryon-token"><span class="k">do</span></span><span class="alectryon-token">
@@ -7195,11 +7195,11 @@ Module initialization entails</p>
 <ul>
 <li>initialization of all &quot;constants&quot; (nullary functions), including closed terms lifted out of other functions</li>
 <li>execution of all <code>[init]</code> functions</li>
-<li>execution of all <code>[builtinInit]</code> functions, if the <code>builtin</code> parameter of the module initializer has been set</li>
+<li>execution of all <code>[builtin_init]</code> functions, if the <code>builtin</code> parameter of the module initializer has been set</li>
 </ul>
 <p>The module initializer is automatically run with the <code>builtin</code> flag for executables compiled from Lean code and for &quot;plugins&quot; loaded with <code>lean --plugin</code>.
 For all other modules imported by <code>lean</code>, the initializer is run without <code>builtin</code>.
-Thus <code>[init]</code> functions are run iff their module is imported, regardless of whether they have native code available or not, while <code>[builtinInit]</code> functions are only run for native executable or plugins, regardless of whether their module is imported or not.
+Thus <code>[init]</code> functions are run iff their module is imported, regardless of whether they have native code available or not, while <code>[builtin_init]</code> functions are only run for native executable or plugins, regardless of whether their module is imported or not.
 <code>lean</code> uses built-in initializers for e.g. registering basic parsers that should be available even without importing their module (which is necessary for bootstrapping).</p>
 <p>The initializer for module <code>A.B</code> is called <code>initialize_A_B</code> and will automatically initialize any imported modules.
 Module initializers are idempotent (when run with the same <code>builtin</code> flag), but not thread-safe.

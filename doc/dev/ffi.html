@@ -217,11 +217,11 @@ Module initialization entails</p>
 <ul>
 <li>initialization of all &quot;constants&quot; (nullary functions), including closed terms lifted out of other functions</li>
 <li>execution of all <code>[init]</code> functions</li>
-<li>execution of all <code>[builtinInit]</code> functions, if the <code>builtin</code> parameter of the module initializer has been set</li>
+<li>execution of all <code>[builtin_init]</code> functions, if the <code>builtin</code> parameter of the module initializer has been set</li>
 </ul>
 <p>The module initializer is automatically run with the <code>builtin</code> flag for executables compiled from Lean code and for &quot;plugins&quot; loaded with <code>lean --plugin</code>.
 For all other modules imported by <code>lean</code>, the initializer is run without <code>builtin</code>.
-Thus <code>[init]</code> functions are run iff their module is imported, regardless of whether they have native code available or not, while <code>[builtinInit]</code> functions are only run for native executable or plugins, regardless of whether their module is imported or not.
+Thus <code>[init]</code> functions are run iff their module is imported, regardless of whether they have native code available or not, while <code>[builtin_init]</code> functions are only run for native executable or plugins, regardless of whether their module is imported or not.
 <code>lean</code> uses built-in initializers for e.g. registering basic parsers that should be available even without importing their module (which is necessary for bootstrapping).</p>
 <p>The initializer for module <code>A.B</code> is called <code>initialize_A_B</code> and will automatically initialize any imported modules.
 Module initializers are idempotent (when run with the same <code>builtin</code> flag), but not thread-safe.
