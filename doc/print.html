@@ -2193,7 +2193,7 @@ overloading existing) prefix, infix, and postfix operators.</p>
 <pre><code class="language-lean">infixl:65   &quot; + &quot; =&gt; HAdd.hAdd  -- left-associative
 infix:50    &quot; = &quot; =&gt; Eq         -- non-associative
 infixr:80   &quot; ^ &quot; =&gt; HPow.hPow  -- right-associative
-prefix:100  &quot;-&quot;   =&gt; Neg.neg
+prefix:75  &quot;-&quot;   =&gt; Neg.neg
 <span class="boring">set_option quotPrecheck false
 </span>postfix:max &quot;⁻¹&quot;  =&gt; Inv.inv
 </code></pre>
@@ -2208,7 +2208,7 @@ can make this more precise by looking at what the commands above unfold to:</p>
 <pre><code class="language-lean">notation:65 lhs:65 &quot; + &quot; rhs:66 =&gt; HAdd.hAdd lhs rhs
 notation:50 lhs:51 &quot; = &quot; rhs:51 =&gt; Eq lhs rhs
 notation:80 lhs:81 &quot; ^ &quot; rhs:80 =&gt; HPow.hPow lhs rhs
-notation:100 &quot;-&quot; arg:100 =&gt; Neg.neg arg
+notation:75 &quot;-&quot; arg:75 =&gt; Neg.neg arg
 <span class="boring">set_option quotPrecheck false
 </span>notation:1024 arg:1024 &quot;⁻¹&quot; =&gt; Inv.inv arg  -- `max` is a shorthand for precedence 1024
 </code></pre>
