@@ -387,7 +387,7 @@ See <a href="./setup.html">Setup</a> for other ways, supported platforms, and mo
 <img src="images/install_elan.png" alt="elan" /></p>
 <p>Click the &quot;Install Lean using Elan&quot; button. You should see some progress output like this:</p>
 <pre><code>info: syncing channel updates for 'nightly'
-info: latest update on nightly, lean version nightly-2021-12-05
+info: latest update on nightly, lean version nightly-2023-06-27
 info: downloading component 'lean'
 </code></pre>
 <p>If there is no popup, you probably have Elan installed already.
@@ -415,19 +415,19 @@ Saved changes are visible in other files after running &quot;Lean 4: Refresh Fil
 If that doesn't work, try also running the VS Code command <code>Developer: Reload Window</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="supported-platforms"><a class="header" href="#supported-platforms">Supported Platforms</a></h1>
 <h3 id="tier-1"><a class="header" href="#tier-1">Tier 1</a></h3>
-<p>Platforms built &amp; tested by our CI, available as nightly &amp; stable releases via elan (see above)</p>
+<p>Platforms built &amp; tested by our CI, available as nightly releases via elan (see below)</p>
 <ul>
 <li>x86-64 Linux with glibc 2.27+</li>
 <li>x86-64 macOS 10.15+</li>
 <li>x86-64 Windows 10+</li>
 </ul>
 <h3 id="tier-2"><a class="header" href="#tier-2">Tier 2</a></h3>
-<p>Platforms cross-compiled but not tested by our CI, available as nightly &amp; stable releases</p>
+<p>Platforms cross-compiled but not tested by our CI, available as nightly releases</p>
 <p>Releases may be silently broken due to the lack of automated testing.
 Issue reports and fixes are welcome.</p>
 <ul>
 <li>aarch64 Linux with glibc 2.27+</li>
-<li>aarch64 (M1) macOS</li>
+<li>aarch64 (Apple Silicon) macOS</li>
 </ul>
 <!--
 ### Tier 3
@@ -439,9 +439,7 @@ Platforms that are known to work from manual testing, but do not come with CI or
 <p>Release builds for all supported platforms are available at <a href="https://github.com/leanprover/lean4/releases">https://github.com/leanprover/lean4/releases</a>.
 Instead of downloading these and setting up the paths manually, however, it is recommended to use the Lean version manager <a href="https://github.com/leanprover/elan"><code>elan</code></a> instead:</p>
 <pre><code class="language-sh">$ elan self update  # in case you haven't updated elan in a while
-# download &amp; activate latest Lean 4 release (https://github.com/leanprover/lean4/releases)
-$ elan default leanprover/lean4:stable
-# alternatively, use the latest nightly build (https://github.com/leanprover/lean4-nightly/releases)
+# download &amp; activate latest Lean 4 nightly release (https://github.com/leanprover/lean4-nightly/releases)
 $ elan default leanprover/lean4:nightly
 </code></pre>
 <h2 id="lake"><a class="header" href="#lake"><code>lake</code></a></h2>
