@@ -184,6 +184,12 @@ alternatively you can also set <code>lean4-rootdir</code> to <code>&quot;~/.elan
 things like symbol autocompletion because at first only the elan proxy binary
 is loaded. You can instead pass the explicit path to <code>bin/lean</code> in your build
 folder to gdb, or use <code>gdb $(elan which lean)</code>.</p>
+<p>It is also possible to generate releases that others can use,
+simply by pushing a tag to your fork of the Lean 4 github repository
+(and waiting about an hour; check the <code>Actions</code> tab for completion).
+If you push <code>my-tag</code> to a fork in your github account <code>my_name</code>,
+you can then put <code>my_name/lean4:my-tag</code> in your <code>lean-toolchain</code> file in a project using <code>lake</code>.
+(You must use a tag name that does not start with a numeral, or contain <code>_</code>).</p>
 
                     </main>
 
